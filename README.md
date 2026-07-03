@@ -4,7 +4,7 @@
 
 Windows 10 to Windows 11 Upgrade Lab is a beginner-friendly IT support and sysadmin portfolio project focused on practicing a Windows 10 to Windows 11 in-place upgrade in VMware.
 
-The lab covers virtual machine preparation, Windows installation, TPM and Secure Boot readiness, Windows Update checks, VMware snapshots, Windows 11 upgrade execution, post-upgrade verification, troubleshooting notes and documentation.
+The lab covers virtual machine preparation, Windows installation, TPM and Secure Boot readiness, Windows Update checks, VMware snapshots, Windows 11 upgrade execution, post-upgrade verification, troubleshooting notes, final reporting and GitHub documentation.
 
 This project uses a safe local lab environment only. No real user data, production systems, passwords, private files or company devices are used.
 
@@ -16,7 +16,7 @@ A company is preparing to upgrade Windows 10 client computers to Windows 11.
 
 The goal of this lab is to act as an IT support technician and practice the upgrade process safely in VMware before performing similar work on real devices.
 
-The lab starts with a clean Windows 10 Pro installation, prepares the VM for Windows 11, performs an in-place upgrade and verifies the upgraded Windows 11 system.
+The lab starts with a clean Windows 10 Pro installation, prepares the VM for Windows 11, performs an in-place upgrade, verifies the upgraded Windows 11 system and documents common troubleshooting scenarios.
 
 ---
 
@@ -33,7 +33,9 @@ The lab starts with a clean Windows 10 Pro installation, prepares the VM for Win
 * Create a VMware snapshot before upgrading.
 * Upgrade Windows 10 Pro to Windows 11 Pro.
 * Verify Windows 11 after upgrade.
-* Document the process with screenshots and notes.
+* Document troubleshooting notes.
+* Create a final upgrade report.
+* Document the process with screenshots and GitHub-ready Markdown.
 
 ---
 
@@ -50,8 +52,8 @@ The lab starts with a clean Windows 10 Pro installation, prepares the VM for Win
 | Part 7 | Windows Update preparation | Complete |
 | Part 8 | Pre-upgrade snapshot | Complete |
 | Part 9 | Windows 11 upgrade and verification | Complete |
-| Part 10 | Upgrade troubleshooting notes | Planned |
-| Part 11 | Final report and GitHub polish | Planned |
+| Part 10 | Upgrade troubleshooting notes | Complete |
+| Part 11 | Final report and GitHub polish | Complete |
 
 ---
 
@@ -84,9 +86,11 @@ The lab starts with a clean Windows 10 Pro installation, prepares the VM for Win
 ```text
 Windows-10-to-11-Upgrade-Lab/
 ├── docs/
-│   └── .gitkeep
+│   ├── .gitkeep
+│   └── windows-10-to-11-upgrade-final-report.md
 ├── notes/
-│   └── .gitkeep
+│   ├── .gitkeep
+│   └── windows-11-upgrade-troubleshooting.md
 ├── results/
 │   └── .gitkeep
 ├── screenshots/
@@ -128,9 +132,20 @@ Windows-10-to-11-Upgrade-Lab/
 | --- | --- |
 | `README.md` | Main GitHub project overview |
 | `logbook.md` | Step-by-step project notes |
+| `docs/windows-10-to-11-upgrade-final-report.md` | Final upgrade report |
+| `notes/windows-11-upgrade-troubleshooting.md` | Troubleshooting reference notes |
 | `screenshots/` | Screenshot evidence |
 | `results/` | Command output and verification results |
-| `notes/` | Troubleshooting notes |
+
+---
+
+## Key project documents
+
+| Document | Purpose |
+| --- | --- |
+| [Final upgrade report](docs/windows-10-to-11-upgrade-final-report.md) | Summarizes the full lab, environment, upgrade method, evidence and result. |
+| [Troubleshooting notes](notes/windows-11-upgrade-troubleshooting.md) | Lists common Windows 11 upgrade issues and practical checks/fixes. |
+| [Logbook](logbook.md) | Documents the project step by step. |
 
 ---
 
@@ -190,6 +205,10 @@ The in-place upgrade completed successfully.
 
 Post-upgrade checks confirmed Windows 11 build information, TPM, Secure Boot, Device Manager status and Windows Update status.
 
+Troubleshooting notes were created for common upgrade issues, including TPM, Secure Boot, UEFI, disk space, Windows Update, VMware Tools, network checks and setup path problems.
+
+A final report was created to summarize the lab, environment, upgrade method, verification results and evidence.
+
 ---
 
 ## Skills demonstrated
@@ -210,10 +229,22 @@ Post-upgrade checks confirmed Windows 11 build information, TPM, Secure Boot, De
 * Windows 11 in-place upgrade
 * Post-upgrade validation
 * Device Manager review
+* Troubleshooting documentation
+* Final technical reporting
 * IT support documentation
 * Screenshot-based evidence collection
 * Markdown documentation
 * Git and GitHub workflow
+
+---
+
+## Final result
+
+The lab successfully demonstrated a full Windows 10 Pro to Windows 11 Pro in-place upgrade workflow in VMware.
+
+The upgrade kept personal files and apps, preserved the local lab account, and passed post-upgrade checks for TPM, Secure Boot, VMware Tools, Device Manager and Windows Update.
+
+The project is complete and ready for portfolio use.
 
 ---
 

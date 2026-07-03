@@ -367,7 +367,6 @@ Screenshots:
 
 ![screenshot-06a-pre-upgrade-snapshot-created.png](screenshots/screenshot-06a-pre-upgrade-snapshot-created.png)
 
-![screenshot-06b-snapshot-manager-before-upgrade.png](screenshots/screenshot-06b-snapshot-manager-before-upgrade.png)
 
 ### Result
 
@@ -500,3 +499,96 @@ The upgrade preserved the local lab account and kept personal files and apps.
 Post-upgrade checks confirmed TPM, Secure Boot, Windows Update and Device Manager status.
 
 The VM is ready for final documentation review, troubleshooting notes and GitHub polish.
+
+---
+
+## 2026-07-03 — Part 10: Upgrade troubleshooting notes
+
+### Goal
+
+Create troubleshooting notes for common Windows 10 to Windows 11 upgrade issues.
+
+### Work completed
+
+* Created `notes/windows-11-upgrade-troubleshooting.md`.
+* Documented common TPM-related upgrade problems.
+* Documented Secure Boot and UEFI issues.
+* Documented disk space problems.
+* Documented Windows Update troubleshooting.
+* Documented VMware Tools verification.
+* Documented network test behavior, including ping timeout vs TCP connectivity.
+* Documented setup path issues, including the difference between in-place upgrade and clean install.
+* Documented the optional preview update decision after upgrade.
+
+### Troubleshooting topics covered
+
+| Topic | Purpose |
+| --- | --- |
+| TPM not detected | Explains checks and VMware virtual TPM setup. |
+| Secure Boot not enabled | Explains Secure Boot verification and VMware setting. |
+| BIOS instead of UEFI | Explains why UEFI should be configured before installation. |
+| Not enough disk space | Explains disk checks and cleanup options. |
+| Windows Update stuck | Lists basic restart, disk and network checks. |
+| Ping fails but internet works | Explains ICMP blocking and TCP testing. |
+| VMware Tools not detected | Explains service verification and reinstall path. |
+| Version fields look confusing | Explains why some PowerShell fields may still show Windows 10 naming. |
+| Setup wants to keep nothing | Explains why setup should be started from inside Windows 10. |
+| Windows 11 ISO not mounted | Explains CD/DVD ISO checks in VMware. |
+| Optional preview update appears | Explains why optional previews were skipped. |
+
+### Evidence
+
+Troubleshooting document:
+
+```text
+notes/windows-11-upgrade-troubleshooting.md
+```
+
+### Result
+
+A troubleshooting reference was created for common Windows 11 upgrade support scenarios.
+
+---
+
+## 2026-07-03 — Part 11: Final report and GitHub polish
+
+### Goal
+
+Create the final report and prepare the project for portfolio use.
+
+### Work completed
+
+* Created `docs/windows-10-to-11-upgrade-final-report.md`.
+* Summarized the project purpose, scope and lab environment.
+* Summarized the Windows 10 source system.
+* Summarized the Windows 11 target system.
+* Documented the preparation process.
+* Documented the in-place upgrade method.
+* Documented verification commands and evidence.
+* Documented troubleshooting observations.
+* Updated the README to show the project as complete.
+* Updated the logbook with final troubleshooting and report sections.
+* Prepared the repository for final GitHub review.
+
+### Final project documents
+
+| Document | Purpose |
+| --- | --- |
+| `README.md` | Main project overview |
+| `logbook.md` | Full step-by-step lab record |
+| `docs/windows-10-to-11-upgrade-final-report.md` | Final upgrade report |
+| `notes/windows-11-upgrade-troubleshooting.md` | Troubleshooting reference |
+
+### Final verification checklist
+
+* README opens correctly on GitHub.
+* Logbook opens correctly on GitHub.
+* Final report link works.
+* Troubleshooting notes link works.
+* Screenshot references match files in the `screenshots` folder.
+* Written documentation uses anonymized local paths where needed.
+* No real passwords, private account data, license keys or company data are documented.
+
+### Result
+
+The Windows 10 to Windows 11 Upgrade Lab was completed and polished for GitHub portfolio use.
