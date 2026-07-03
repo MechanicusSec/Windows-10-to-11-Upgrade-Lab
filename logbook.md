@@ -239,7 +239,7 @@ No real personal Microsoft account, private email address or real password was u
 
 ### Goal
 
-Verify the installed Windows 10 version before preparing for the Windows 11 upgrade.
+Verify the installed Windows 10 system baseline before preparing for the Windows 11 upgrade.
 
 ### Work completed
 
@@ -249,6 +249,12 @@ Verify the installed Windows 10 version before preparing for the Windows 11 upgr
 * Confirmed Windows 10 version 22H2.
 * Confirmed OS Build 19045.3803.
 * Confirmed the lab user is `LabUser`.
+* Reviewed system information with `systeminfo`.
+* Verified TPM status with `Get-Tpm`.
+* Verified Secure Boot with `Confirm-SecureBootUEFI`.
+* Verified disk space with `Get-PSDrive C`.
+* Verified CPU and memory with `Get-ComputerInfo`.
+* Verified network connectivity with `Test-NetConnection`.
 
 ### Verification result
 
@@ -258,11 +264,22 @@ Verify the installed Windows 10 version before preparing for the Windows 11 upgr
 | Version | 22H2 |
 | OS Build | 19045.3803 |
 | Lab user | LabUser |
+| Disk free space | Approximately 60 GB free |
+| Memory | Approximately 8 GB |
+| Network | VMware NAT, connectivity verified |
+| TPM | Present |
+| Secure Boot | Enabled |
 
-### Command used
+### Commands used
 
 ```powershell
 winver
+systeminfo
+Get-Tpm
+Confirm-SecureBootUEFI
+Get-PSDrive C
+Get-ComputerInfo | Select-Object CsProcessors,CsNumberOfLogicalProcessors,CsTotalPhysicalMemory
+Test-NetConnection microsoft.com -CommonTCPPort HTTP
 ```
 
 ### Command purpose
@@ -270,19 +287,95 @@ winver
 | Command | Purpose |
 | --- | --- |
 | `winver` | Opens the About Windows dialog and shows Windows edition, version and build number. |
+| `systeminfo` | Shows detailed Windows system information. |
+| `Get-Tpm` | Checks whether Windows detects a Trusted Platform Module. |
+| `Confirm-SecureBootUEFI` | Confirms whether Secure Boot is enabled in UEFI mode. |
+| `Get-PSDrive C` | Shows used and free space on the C: drive. |
+| `Get-ComputerInfo` | Shows Windows computer hardware and configuration details. |
+| `Select-Object` | Filters command output to show only selected fields. |
+| `Test-NetConnection` | Tests network connectivity to a remote host and port. |
+| `-CommonTCPPort HTTP` | Tests common HTTP connectivity on TCP port 80. |
 
 ### Notes
 
-This confirms that Windows 10 was installed successfully.
+The initial `ping microsoft.com` test timed out, which can happen because ICMP traffic may be blocked or filtered.
 
-The VM is now ready for deeper baseline checks, including TPM, Secure Boot, UEFI, disk space, memory and update status.
+Network connectivity was then verified successfully with `Test-NetConnection microsoft.com -CommonTCPPort HTTP`.
+
+The private VMware NAT address shown during testing is an internal lab address, not a public IP address.
 
 ### Evidence
 
-Screenshot:
+Screenshots:
 
 ![screenshot-02-windows-10-winver.png](screenshots/screenshot-02-windows-10-winver.png)
 
+![screenshot-03a-windows-10-systeminfo.png](screenshots/screenshot-03a-windows-10-systeminfo.png)
+
+![screenshot-03b-windows-10-tpm-secureboot-check.png](screenshots/screenshot-03b-windows-10-tpm-secureboot-check.png)
+
+![screenshot-03c-windows-10-disk-memory-check.png](screenshots/screenshot-03c-windows-10-disk-memory-check.png)
+
+![screenshot-03d-windows-10-network-check.png](screenshots/screenshot-03d-windows-10-network-check.png)
+
 ### Result
 
-Windows 10 Pro 22H2 was installed successfully and verified with `winver`.
+Windows 10 Pro 22H2 was installed successfully and the baseline system checks were completed.
+
+The VM is ready for VMware Tools verification and Windows Update preparation.
+
+---
+
+## 2026-07-03 — Part 6: VMware Tools installation
+
+### Goal
+
+Install and verify VMware Tools inside the Windows 10 VM.
+
+### Work completed
+
+* Started VMware Tools installation from the VMware Workstation `VM` menu.
+* Mounted the VMware Tools installation media inside the Windows 10 VM.
+* Installed VMware Tools.
+* Restarted the VM after installation.
+* Verified the VMware Tools service with `Get-Service VMTools`.
+
+### Command used
+
+```powershell
+Get-Service VMTools
+```
+
+### Command purpose
+
+| Command | Purpose |
+| --- | --- |
+| `Get-Service VMTools` | Checks whether the VMware Tools service exists and whether it is running. |
+
+### Verification result
+
+| Item | Result |
+| --- | --- |
+| Service name | VMTools |
+| Display name | VMware Tools |
+| Status | Running |
+
+### Notes
+
+VMware Tools improves display handling, mouse movement, clipboard support, driver integration, time synchronization and overall VM performance.
+
+The VMware Tools service was confirmed as running after reboot.
+
+### Evidence
+
+Screenshots:
+
+![screenshot-04a-vmware-tools-installation.png](screenshots/screenshot-04a-vmware-tools-installation.png)
+
+![screenshot-04b-vmware-tools-installed.png](screenshots/screenshot-04b-vmware-tools-installed.png)
+
+### Result
+
+VMware Tools was installed successfully and verified as running.
+
+The Windows 10 VM is now ready for Windows Update preparation and the pre-upgrade snapshot stage.
