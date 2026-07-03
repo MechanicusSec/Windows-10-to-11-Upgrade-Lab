@@ -16,22 +16,6 @@ Create the documentation structure for the Windows 10 to Windows 11 Upgrade Lab.
 * Opened the project in VS Code.
 * Prepared the lab for step-by-step documentation.
 
-### Project structure
-
-```text
-Windows-10-to-11-Upgrade-Lab/
-├── docs/
-│   └── .gitkeep
-├── notes/
-│   └── .gitkeep
-├── results/
-│   └── .gitkeep
-├── screenshots/
-│   └── .gitkeep
-├── logbook.md
-└── README.md
-```
-
 ### Commands used
 
 ```powershell
@@ -69,14 +53,6 @@ code .
 | `New-Item logbook.md` | Creates the step-by-step project logbook. |
 | `New-Item .gitkeep` | Creates placeholder files so Git can track empty folders. |
 | `code .` | Opens the project folder in VS Code. |
-
-### Notes
-
-This part created the documentation base for the lab.
-
-The project will be documented step by step so the Windows 10 to Windows 11 upgrade process can be used as a portfolio project.
-
-No real passwords, private account names, production devices, company data or license keys should be included in public documentation.
 
 ### Evidence
 
@@ -136,13 +112,9 @@ Get-ChildItem "C:\Users\*****\Documents\ISO" | Select-Object Name,Length,LastWri
 | `-ErrorAction SilentlyContinue` | Hides permission errors during searching. |
 | `Copy-Item` | Copies the Windows ISO from OneDrive to a local ISO folder. |
 
-### Notes
+### Result
 
-The ISO was copied away from OneDrive because large lab files are safer in a normal local folder.
-
-OneDrive can sync, lock or interfere with large files, so local VM and ISO paths are preferred.
-
-Written documentation should anonymize personal folder paths.
+The Windows 10 ISO was prepared and ready for VMware.
 
 ---
 
@@ -185,15 +157,9 @@ Create a VMware virtual machine for the Windows 10 to Windows 11 upgrade lab.
 | Network | NAT |
 | CD/DVD | Windows 10 ISO |
 
-### Notes
+### Result
 
-The VM was configured to support a future Windows 11 upgrade.
-
-UEFI, Secure Boot and TPM were configured before Windows 10 installation so the VM would match Windows 11 compatibility expectations.
-
-VMware required encryption before adding a virtual TPM.
-
-Only the files needed to support the virtual TPM were encrypted.
+The VM was configured for Windows 10 installation and future Windows 11 upgrade compatibility.
 
 ---
 
@@ -225,13 +191,9 @@ Install Windows 10 Pro in the VMware virtual machine.
 | Install type | Custom install |
 | Disk | 80 GB virtual disk |
 
-### Notes
+### Result
 
-A local account was used to avoid connecting personal Microsoft account data to the lab VM.
-
-Generic lab names should be used in screenshots and documentation.
-
-No real personal Microsoft account, private email address or real password was used.
+Windows 10 Pro was installed successfully.
 
 ---
 
@@ -243,32 +205,14 @@ Verify the installed Windows 10 system baseline before preparing for the Windows
 
 ### Work completed
 
-* Opened the Windows 10 desktop.
 * Ran `winver`.
-* Confirmed Windows 10 Pro was installed.
-* Confirmed Windows 10 version 22H2.
-* Confirmed OS Build 19045.3803.
-* Confirmed the lab user is `LabUser`.
+* Confirmed Windows 10 Pro 22H2, OS Build 19045.3803.
 * Reviewed system information with `systeminfo`.
 * Verified TPM status with `Get-Tpm`.
 * Verified Secure Boot with `Confirm-SecureBootUEFI`.
 * Verified disk space with `Get-PSDrive C`.
 * Verified CPU and memory with `Get-ComputerInfo`.
 * Verified network connectivity with `Test-NetConnection`.
-
-### Verification result
-
-| Item | Result |
-| --- | --- |
-| Operating system | Windows 10 Pro |
-| Version | 22H2 |
-| OS Build | 19045.3803 |
-| Lab user | LabUser |
-| Disk free space | Approximately 60 GB free |
-| Memory | Approximately 8 GB |
-| Network | VMware NAT, connectivity verified |
-| TPM | Present |
-| Secure Boot | Enabled |
 
 ### Commands used
 
@@ -294,15 +238,6 @@ Test-NetConnection microsoft.com -CommonTCPPort HTTP
 | `Get-ComputerInfo` | Shows Windows computer hardware and configuration details. |
 | `Select-Object` | Filters command output to show only selected fields. |
 | `Test-NetConnection` | Tests network connectivity to a remote host and port. |
-| `-CommonTCPPort HTTP` | Tests common HTTP connectivity on TCP port 80. |
-
-### Notes
-
-The initial `ping microsoft.com` test timed out, which can happen because ICMP traffic may be blocked or filtered.
-
-Network connectivity was then verified successfully with `Test-NetConnection microsoft.com -CommonTCPPort HTTP`.
-
-The private VMware NAT address shown during testing is an internal lab address, not a public IP address.
 
 ### Evidence
 
@@ -320,9 +255,7 @@ Screenshots:
 
 ### Result
 
-Windows 10 Pro 22H2 was installed successfully and the baseline system checks were completed.
-
-The VM is ready for VMware Tools verification and Windows Update preparation.
+Windows 10 baseline checks were completed successfully.
 
 ---
 
@@ -360,12 +293,6 @@ Get-Service VMTools
 | Display name | VMware Tools |
 | Status | Running |
 
-### Notes
-
-VMware Tools improves display handling, mouse movement, clipboard support, driver integration, time synchronization and overall VM performance.
-
-The VMware Tools service was confirmed as running after reboot.
-
 ### Evidence
 
 Screenshots:
@@ -378,4 +305,198 @@ Screenshots:
 
 VMware Tools was installed successfully and verified as running.
 
-The Windows 10 VM is now ready for Windows Update preparation and the pre-upgrade snapshot stage.
+---
+
+## 2026-07-03 — Part 7: Windows Update preparation
+
+### Goal
+
+Check Windows Update before starting the Windows 11 upgrade.
+
+### Work completed
+
+* Opened Windows Update in the Windows 10 VM.
+* Captured the Windows Update status before a manual update check.
+* Ran a manual update check.
+* Observed Windows Update downloading security and quality updates.
+* Observed Windows 10 reporting an end-of-support/missing-fixes status after update checks.
+
+### Notes
+
+The Windows 10 end-of-support status supports the business reason for upgrading to Windows 11.
+
+### Evidence
+
+Screenshots:
+
+![screenshot-05a-windows-update-before-check.png](screenshots/screenshot-05a-windows-update-before-check.png)
+
+![screenshot-05b-windows-update-checking.png](screenshots/screenshot-05b-windows-update-checking.png)
+
+![screenshot-05c-windows-update-end-of-support-status.png](screenshots/screenshot-05c-windows-update-end-of-support-status.png)
+
+### Result
+
+Windows Update preparation was completed.
+
+---
+
+## 2026-07-03 — Part 8: Pre-upgrade snapshot
+
+### Goal
+
+Create a rollback point before starting the Windows 11 upgrade.
+
+### Work completed
+
+* Created a VMware snapshot before the Windows 11 upgrade.
+* Named the snapshot `Before Windows 11 Upgrade`.
+* Verified the snapshot in VMware Snapshot Manager.
+
+### Snapshot details
+
+| Field | Detail |
+| --- | --- |
+| Snapshot name | Before Windows 11 Upgrade |
+| Purpose | Rollback point before Windows 11 upgrade |
+| VM state | Windows 10 Pro baseline with VMware Tools installed and update checks completed |
+
+### Evidence
+
+Screenshots:
+
+![screenshot-06a-pre-upgrade-snapshot-created.png](screenshots/screenshot-06a-pre-upgrade-snapshot-created.png)
+
+![screenshot-06b-snapshot-manager-before-upgrade.png](screenshots/screenshot-06b-snapshot-manager-before-upgrade.png)
+
+### Result
+
+A pre-upgrade rollback point was created successfully.
+
+---
+
+## 2026-07-03 — Part 9: Windows 11 upgrade and verification
+
+### Goal
+
+Perform an in-place upgrade from Windows 10 Pro to Windows 11 Pro and verify the result.
+
+### Work completed
+
+* Attached the Windows 11 ISO to the VM.
+* Opened the mounted ISO inside Windows 10.
+* Started the upgrade with `setup.exe`.
+* Chose the setup path that keeps personal files and apps.
+* Confirmed Windows Setup was ready to install Windows 11 Pro.
+* Completed the Windows 11 in-place upgrade.
+* Verified the upgraded Windows version with `winver`.
+* Verified Windows build information with PowerShell.
+* Verified TPM and Secure Boot after upgrade.
+* Checked Device Manager after upgrade.
+* Checked Windows Update after upgrade.
+* Confirmed required updates completed after upgrade.
+
+### Upgrade method
+
+The upgrade was started from inside Windows 10 by running:
+
+```text
+setup.exe
+```
+
+from the mounted Windows 11 ISO.
+
+This was an in-place upgrade, not a clean install.
+
+### Setup confirmation
+
+| Item | Selection |
+| --- | --- |
+| Target operating system | Windows 11 Pro |
+| Files and apps | Keep personal files and apps |
+
+### Commands used
+
+```powershell
+winver
+
+Get-ComputerInfo | Select-Object WindowsProductName,WindowsVersion,OsBuildNumber
+
+Get-Tpm
+
+Confirm-SecureBootUEFI
+```
+
+### Command purpose
+
+| Command | Purpose |
+| --- | --- |
+| `winver` | Opens the Windows version dialog and verifies the installed Windows version. |
+| `Get-ComputerInfo` | Shows Windows system information from PowerShell. |
+| `Select-Object WindowsProductName,WindowsVersion,OsBuildNumber` | Filters Windows version output to product name, version and build number. |
+| `Get-Tpm` | Verifies TPM status after the upgrade. |
+| `Confirm-SecureBootUEFI` | Verifies Secure Boot after the upgrade. |
+
+### Verification result
+
+| Item | Result |
+| --- | --- |
+| Upgrade result | Completed |
+| Upgrade type | In-place upgrade |
+| Target edition | Windows 11 Pro |
+| Personal files and apps | Kept |
+| OS build shown in PowerShell | 26200 |
+| TPM | Present and ready |
+| Secure Boot | Enabled |
+| VMware Tools | Running |
+| Windows Update | Required updates completed |
+
+### Notes
+
+The PowerShell output showed `WindowsProductName` as `Windows 10 Pro` while also showing build `26200`.
+
+This can happen because some Windows compatibility fields may still use Windows 10 naming internally after upgrade.
+
+For this lab, `winver` and OS build information are used as the primary Windows 11 verification evidence.
+
+Windows Update later showed the Windows 11 VM as up to date, with an optional preview update available.
+
+The optional preview update was not required for this lab.
+
+### Evidence
+
+Screenshots:
+
+![screenshot-07a-windows-11-iso-attached.png](screenshots/screenshot-07a-windows-11-iso-attached.png)
+
+![screenshot-07b-windows-11-setup-files.png](screenshots/screenshot-07b-windows-11-setup-files.png)
+
+![screenshot-08a-windows-11-setup-start.png](screenshots/screenshot-08a-windows-11-setup-start.png)
+
+![screenshot-08b-windows-11-license-or-readiness-check.png](screenshots/screenshot-08b-windows-11-license-or-readiness-check.png)
+
+![screenshot-08c-windows-11-ready-to-install-keep-files-apps.png](screenshots/screenshot-08c-windows-11-ready-to-install-keep-files-apps.png)
+
+![screenshot-08d-windows-11-upgrade-installing.png](screenshots/screenshot-08d-windows-11-upgrade-installing.png)
+
+![screenshot-09a-windows-11-winver.png](screenshots/screenshot-09a-windows-11-winver.png)
+
+![screenshot-09b-windows-11-powershell-version-check.png](screenshots/screenshot-09b-windows-11-powershell-version-check.png)
+
+![screenshot-09c-windows-11-tpm-secureboot-check.png](screenshots/screenshot-09c-windows-11-tpm-secureboot-check.png)
+
+![screenshot-09d-windows-11-tpm-secureboot-check.png](screenshots/screenshot-09d-windows-11-tpm-secureboot-check.png)
+
+![screenshot-09e-windows-11-device-manager-clean.png](screenshots/screenshot-09e-windows-11-device-manager-clean.png)
+
+![screenshot-09f-windows-11-update-final-status.png](screenshots/screenshot-09f-windows-11-update-final-status.png)
+
+### Result
+
+The Windows 10 Pro VM was successfully upgraded to Windows 11 Pro.
+
+The upgrade preserved the local lab account and kept personal files and apps.
+
+Post-upgrade checks confirmed TPM, Secure Boot, Windows Update and Device Manager status.
+
+The VM is ready for final documentation review, troubleshooting notes and GitHub polish.
